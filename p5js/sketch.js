@@ -20,24 +20,19 @@ function pickLocation() {
     food.mult(scl);
 }
 
-function score() {
-    return s.total;
-}
-
-
 function draw() {
     background(51);
 
+    s.death();
     if (s.eat(food)) {
         pickLocation();
     }
-    s.death();
     s.update();
     s.show();
 
     fill(78, 244, 66);
     textSize(15);
-    text("Score: "+score(), width-575, height-575);
+    text("Score: "+s.tail.length, 25, 25);
 
     fill(255);
     rect(food.x, food.y, scl, scl);
