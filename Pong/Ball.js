@@ -10,7 +10,6 @@ function Ball() {
     this.x = 300;
     this.y = 300;
     this.velocityX = 5;
-    this.velocityY = 0;
     this.ballVx = 0;
     this.ballVy = 0;
 
@@ -44,16 +43,14 @@ function Ball() {
         normRelIntY = (relIntY/(pos.height / 2));
         bounceAngle = normRelIntY * (5*PI/12);
         this.velocityX += (-2 * this.velocityX);
-        this.ballVx = this.velocityX*Math.cos(bounceAngle);
-        this.ballVy = this.velocityX*-Math.sin(bounceAngle);
+        this.ballVx = (this.velocityX*Math.cos(bounceAngle))*multiplier;
+        this.ballVy = (this.velocityX*-Math.sin(bounceAngle))*multiplier;
     };
 
     this.update = function () {
         this.x += this.velocityX;
-        this.y += this.velocityY;
         this.x += this.ballVx;
         this.y += this.ballVy;
-        //this.velocityY = 0;
 
         this.x = constrain(this.x, 0, width);
         this.y = constrain(this.y, 0, height);
