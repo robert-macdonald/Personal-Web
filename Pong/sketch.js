@@ -8,6 +8,7 @@ var ball;
 var multiplier = 1;
 
 function setup() {
+    stroke(255);
     createCanvas(600,600);
     playerOne = new Paddle(10, 215, true);
     playerTwo = new Paddle(width-30, 215, false);
@@ -18,13 +19,14 @@ function draw() {
     background(0);
 
     if (keyIsDown(87))
-        playerOne.y -= 10;
+        playerOne.y -= 15;
     else if (keyIsDown(83))
-        playerOne.y += 10;
-    else if (keyIsDown(UP_ARROW))
-        playerTwo.y -= 10;
+        playerOne.y += 15;
+
+    if (keyIsDown(UP_ARROW))
+        playerTwo.y -= 15;
     else if (keyIsDown(DOWN_ARROW))
-        playerTwo.y += 10;
+        playerTwo.y += 15;
 
 
     if (ball.hit(playerOne)) {
@@ -33,25 +35,42 @@ function draw() {
     } else if (ball.hit(playerTwo)){
         multiplier += 0.1;
         ball.bounceAngle(playerTwo);
-    } else if (ball.hitTop()) {
+    }
+
+    if (ball.hitTop()) {
         ball.ballVy += (-2 * ball.ballVy);
     } else if (ball.hitBottom()){
         ball.ballVy -= (2 * ball.ballVy);
     }
 
-    if (ball.x === 0 || ball.x === width){
+    if (playerOne.reachTop()){
+        playerOne.y = height;
+    } else if (playerOne.reachBottom()){
+        playerOne.y = -175;
+    }
+    if (playerTwo.reachTop()){
+        playerTwo.y = height;
+    } else if (playerTwo.reachBottom()){
+        playerTwo.y = -175;
+    }
+
+
+    if (ball.x === 0) {
+        playerTwo.point += 1;
         multiplier = 1;
         ball.ballVy = 0;
         ball.ballVx = 0;
-        ball.x = width /2;
+        ball.x = width / 2;
         ball.y = height / 2;
-        if(ball.x == width) {
-            playerOne.point += 1;
-        } else if (ball.x == 0) {
-            playerTwo.point += 1;
-        }
     }
-
+    if (ball.x === width){
+        playerOne.point += 1;
+        multiplier = 1;
+        ball.ballVy = 0;
+        ball.ballVx = 0;
+        ball.x = width / 2;
+        ball.y = height / 2;
+    }
 
     ball.update();
     ball.show();

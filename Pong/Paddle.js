@@ -9,6 +9,14 @@ function Paddle(x, y, primary) {
     this.height = 175;
     this.width = 20;
 
+    this.reachTop = function () {
+        return (this.y + 175) <= 0;
+    };
+
+    this.reachBottom = function () {
+        return this.y >= height;
+    };
+
     this.show = function () {
         fill(255);
         if(primary) {
