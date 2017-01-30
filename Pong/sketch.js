@@ -28,53 +28,45 @@ function draw() {
     else if (keyIsDown(DOWN_ARROW))
         playerTwo.y += 15;
 
-
     if (ball.hit(playerOne)) {
         multiplier += 0.1;
         ball.bounceAngle(playerOne);
-    } else if (ball.hit(playerTwo)){
+    } else if (ball.hit(playerTwo)) {
         multiplier += 0.1;
         ball.bounceAngle(playerTwo);
     }
 
     if (ball.hitTop()) {
         ball.ballVy += (-2 * ball.ballVy);
-    } else if (ball.hitBottom()){
+    } else if (ball.hitBottom()) {
         ball.ballVy -= (2 * ball.ballVy);
     }
 
-    if (playerOne.reachTop()){
+    if (playerOne.reachTop()) {
         playerOne.y = height;
-    } else if (playerOne.reachBottom()){
+    } else if (playerOne.reachBottom()) {
         playerOne.y = -175;
     }
-    if (playerTwo.reachTop()){
+    if (playerTwo.reachTop()) {
         playerTwo.y = height;
-    } else if (playerTwo.reachBottom()){
+    } else if (playerTwo.reachBottom()) {
         playerTwo.y = -175;
     }
 
 
     if (ball.x === 0) {
         playerTwo.point += 1;
-        multiplier = 1;
-        ball.ballVy = 0;
-        ball.ballVx = 0;
-        ball.x = width / 2;
-        ball.y = height / 2;
+        ball.velocityX = 5;
+        ball.startup();
     }
-    if (ball.x === width){
+    if (ball.x === width) {
         playerOne.point += 1;
-        multiplier = 1;
-        ball.ballVy = 0;
-        ball.ballVx = 0;
-        ball.x = width / 2;
-        ball.y = height / 2;
+        ball.velocityX = -5;
+        ball.startup();
     }
 
     ball.update();
     ball.show();
     playerOne.show();
     playerTwo.show();
-
 }

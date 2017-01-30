@@ -56,6 +56,14 @@ function Ball() {
         this.y = constrain(this.y, 0, height);
     };
 
+    this.startup = function () {
+        multiplier = 1;
+        this.ballVy = 0;
+        this.ballVx = 0;
+        this.x = width / 2;
+        this.y = height / 2;
+    };
+
     this.show = function () {
         fill(255);
         ellipse(this.x, this.y, 25, 25);
